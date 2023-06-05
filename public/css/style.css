@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 1280px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.createForm {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5%;
+}
+
+.w-5 {
+    width: 5vw;
+}
+
+.h-5 {
+    height: 5vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+
+.col {
+    width: 100%;
+    border: 1px solid #000;
+}
