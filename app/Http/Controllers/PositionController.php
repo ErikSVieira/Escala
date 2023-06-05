@@ -10,7 +10,7 @@ class PositionController extends Controller
 {
     public function index() 
     {
-        $positions = Position::paginate(10);
+        $positions = Position::paginate(20);
 
         return view('admin.position.index', compact('positions'));
     }
@@ -23,7 +23,6 @@ class PositionController extends Controller
     public function store(StoreUpdatePosition $request)
     {
         $dados = $request->all();
-        $dados['active'] = true;
 
         Position::create($dados);
 
@@ -45,7 +44,13 @@ class PositionController extends Controller
     {
         if (!$position = Position::find($id)){
             return redirect()->route('position.index');
+        } elseif ($position->active) {
+            $position['active'] = false;
+        } elseif (!$position->active) {
+            $position['active'] = true;
         }
+
+        $position->save();
 
         return redirect()
                 ->route('position.index')
@@ -67,8 +72,6 @@ class PositionController extends Controller
             return redirect()->back();
         }
 
-        $request['active'] = $update->active;
-
         $update->update($request->all());
 
         return redirect()
@@ -80,7 +83,7 @@ class PositionController extends Controller
     {
         $search = $request->except('_token');
 
-        $positions = Position::where('position', 'LIKE', "%{$request->search}%")
+        $positions = Position::where('name', 'LIKE', "%{$request->search}%")
                         ->orWhere('acronym', 'LIKE', "%{$request->search}%")
                         ->paginate();
         

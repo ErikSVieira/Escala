@@ -20,7 +20,7 @@
     <tbody>
         <tr>
             <td>
-                {{ $show->position }}
+                {{ $show->name }}
             </td>
             <td>
                 {{ $show->acronym }}
@@ -43,7 +43,11 @@
     @csrf
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit">
-        Disabled the Position <span style="background: red; color: aliceblue">{{ $show->position }}</span>
+        @if ($show->active)
+            <span style="background: red; color: aliceblue">Disabled the Position {{ $show->name }}</span>
+        @else
+            <span style="background: green; color: aliceblue">Enable the Position {{ $show->name }}</span>
+        @endif
     </button>
 </form>
 

@@ -27,7 +27,7 @@
 @foreach ($positions as $position)
 
     <p>
-        {{ $position->position }} - 
+        {{ $position->name }} - 
         [ 
             <a href="{{ route('position.show', $position->id) }}">Show</a> | 
             <a href="{{ route('position.edit', $position->id) }}">Edit</a>

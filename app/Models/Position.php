@@ -9,12 +9,15 @@ class Position extends Model
 {
     use HasFactory;
 
-    // protected $table = 'positions';
-
     protected $fillable = [
-        'position',
+        'name',
         'acronym',
         'description',
         'active'
     ];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

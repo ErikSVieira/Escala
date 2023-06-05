@@ -27,7 +27,6 @@ class StoreUpdatePosition extends FormRequest
             'position' => ['required', 'min:3', 'max: 30'],
             'acronym' => ['required', 'min:2', 'max: 8'],
             'description' => ['required', 'min:3', 'max: 160'],
-            // 'active' => ['required']
         ];
     }
 }
