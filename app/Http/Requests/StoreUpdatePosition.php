@@ -26,7 +26,7 @@ class StoreUpdatePosition extends FormRequest
         return [
             'position' => ['required', 'min:3', 'max: 30'],
             'acronym' => ['required', 'min:2', 'max: 8'],
-            'description' => ['required', 'min:3', 'max: 160'],
+            'description' => ['nullable', 'min:3', 'max: 160'],
         ];
     }
 }
