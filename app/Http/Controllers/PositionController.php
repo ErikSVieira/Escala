@@ -22,9 +22,9 @@ class PositionController extends Controller
 
     public function store(StoreUpdatePosition $request)
     {
-        $dados = $request->all();
+        $data = $request->all();
 
-        Position::create($dados);
+        Position::create($data);
 
         return redirect()
                 ->route('position.index')
@@ -42,15 +42,15 @@ class PositionController extends Controller
 
     public function destroy($id)
     {
-        if (!$position = Position::find($id)){
+        if (!$destroy = Position::find($id)){
             return redirect()->route('position.index');
-        } elseif ($position->active) {
-            $position['active'] = false;
-        } elseif (!$position->active) {
-            $position['active'] = true;
+        } elseif ($destroy->active) {
+            $destroy['active'] = false;
+        } elseif (!$destroy->active) {
+            $destroy['active'] = true;
         }
 
-        $position->save();
+        $destroy->save();
 
         return redirect()
                 ->route('position.index')

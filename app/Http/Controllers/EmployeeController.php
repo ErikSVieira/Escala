@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateEmployee;
 use App\Models\Employee;
 use App\Models\Position;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -24,12 +27,22 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $dados = $request->all();
+        $data = $request->all();
 
-        Employee::create($dados);
+        $created = Employee::create($data);
 
+        if (isset($request->image)) {
+            $nameFile = Str::of($created->id).'-'.Str::of($request->position_id).'-'.Str::of($request->nickname)->slug('_').'.'.$request->image->getClientOriginalExtension();
+
+            $image = $request->file('image')->storeAs('employee', $nameFile);
+
+            $data['image'] = $image;
+            $created->update($data);
+        }
+
+        
         return redirect()
-                ->route('employees.index')
+                ->route('employee.index')
                 ->with('messages', 'Employees created successfully');
     }
 
@@ -65,16 +78,31 @@ class EmployeeController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.employee.edit', compact('edit'));
+        $positions = Position::get();
+
+        return view('admin.employee.edit', compact('edit', 'positions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdateEmployee $request, $id)
     {
         if (!$update = Employee::find($id)) {
             return redirect()->back();
         }
 
-        $update->update($request->all());
+        $data = $request->all();
+
+        if (isset($request->image)) {
+            if (Storage::exists($update->image)) {
+                Storage::delete($update->image);
+            }
+
+            $nameFile = Str::of($update->id).'-'.Str::of($request->position_id).'-'.Str::of($request->nickname)->slug('_').'.'.$request->image->getClientOriginalExtension();
+
+            $pathFile = $request->image->storeAs('employee', $nameFile);
+            $data['image'] = $pathFile;
+        }
+
+        $update->update($data);
 
         return redirect()
                 ->route('employee.index')

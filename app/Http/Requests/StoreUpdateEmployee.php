@@ -29,7 +29,8 @@ class StoreUpdateEmployee extends FormRequest
             'position_id' => ['required'],
             'birth_date' => ['required'],
             'position_date' => ['required'],
-            'photo' => ['nullable', 'image'],
+            // 'image' => ['nullable', 'image', 'mimes:jpg,bmp,png,jpeg'],
+            'image' => ['nullable', 'image'],
             'ddd' => ['nullable', 'min:2', 'max:2'],
             'phone' => ['nullable', 'min:8', 'max:9'],
             'description' => ['nullable']
