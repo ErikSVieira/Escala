@@ -3,13 +3,20 @@
 @section('title', 'Position')
 
 @section('content')
-<h1>Create Position</h1>
 
 @include('layout.info')
 
-<form action="{{ route('position.store') }}" method="post">
+<div class="container">
+    <div class="row">
+        <h1>Create Position</h1>
+    </div>
+    <div class="row">
+        <form action="{{ route('position.store') }}" method="post">
 
-    @include('admin.position._partials.form')
+            @include('admin.position._partials.form')
+        
+        </form>
+    </div>
+</div>
 
-</form>
 @endsection

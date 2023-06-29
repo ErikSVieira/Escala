@@ -4,51 +4,45 @@
 
 @section('content')
 
-<h1>Show position</h1>
-
-<table style="border: 1px solid black">
-    <thead>
-        <tr>
-            <th>
-                Position
-            </th>
-            <th>
-                Acronym
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                {{ $show->name }}
-            </td>
-            <td>
-                {{ $show->acronym }}
-            </td>
-        </tr>
-        <tr>
-            <th colspan="2">
+<div class="container">
+    <div class="row">
+        <h1>Show position</h1>
+    </div>
+    <div class="row ms-2">
+        <div class="row">
+            <div class="col-2 fw-bold border border-black">Position</div>
+            <div class="col-2 fw-bold border border-black">Acronym</div>
+        </div>
+        <div class="row">
+            <div class="col-2 border border-black">{{ $show->name }}</div>
+            <div class="col-2 border border-black">{{ $show->acronym }}</div>
+        </div>
+        <div class="row">
+            <div class="col-4 fw-bold border border-black">
                 Description
-            </th>
-        </tr>
-        <tr>
-            <td colspan="2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 border border-black">
                 {{ $show->description }}
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<form action="{{ route('position.destroy', $show->id) }}" method="post">
-    @csrf
-    <input type="hidden" name="_method" value="DELETE">
-    <button type="submit">
-        @if ($show->active)
-            <span style="background: red; color: aliceblue">Disabled the Position {{ $show->name }}</span>
-        @else
-            <span style="background: green; color: aliceblue">Enable the Position {{ $show->name }}</span>
-        @endif
-    </button>
-</form>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-4">
+            <form action="{{ route('position.destroy', $show->id) }}" method="post">
+                @csrf
+                @method('delete')
+                <button type="submit"
+                    @if ($show->active)
+                        class="btn btn-danger">Disabled the Position {{ $show->name }}
+                    @else
+                        class="btn btn-success">Enable the Position {{ $show->name }}
+                    @endif
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -36,7 +36,6 @@
 
 @endforeach
 
-<hr>
 
 @if (isset($search))
     {{ $positions->appends($search)->links() }}
