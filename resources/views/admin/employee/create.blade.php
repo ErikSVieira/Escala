@@ -8,7 +8,7 @@
 
 @include('layout.info')
 
-<form action="{{ route('employee.store') }}" method="post">
+<form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data">
     @include('admin.employee._partials.form')
 </form>
 

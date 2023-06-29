@@ -20,7 +20,7 @@
         {{ $employee->name }} - 
         [
             <a href="{{ route('employee.show', $employee->id )}}">Show</a> |
-            <a href="#">Edit</a>
+            <a href="{{ route('employee.edit', $employee->id) }}">Edit</a>
         ]
     </p>
 @endforeach

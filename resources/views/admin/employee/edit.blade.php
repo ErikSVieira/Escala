@@ -4,7 +4,8 @@
 
 @section('content')
 
-<form action="" method="post">
+<form action="{{ route('employee.update', $edit->id) }}" method="post" enctype="multipart/form-data">
+    @method('PUT')
     @include('admin.employee._partials.form')
 </form>
 

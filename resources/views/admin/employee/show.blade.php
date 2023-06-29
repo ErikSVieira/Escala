@@ -11,19 +11,23 @@
     </div>
     <div class="row">
         <div class="col">{{ $show->name }} - {{ $show->position->acronym }}</div>
-        <div class="col">{{ $show->birth_date }}</div>
+        <div class="col">{{ date("d - m - Y", strtotime($show->birth_date)) }}</div>
     </div>
     <div class="row">
-        <form action="" method="post">
+        <form action="{{ route('employee.destroy', $show->id) }}" method="post">
             @csrf
-            <button type="submit">
+            @method('delete')
+            <button type="submit"
                 @if ($show->active)
-                    <span style="background: red; color: aliceblue">Disabled the Employee {{ $show->name }}</span>
+                    class="btn btn-danger">Disabled the Employee {{ $show->name }}
                 @else
-                    <span style="background: green; color: aliceblue">Enable the Employee {{ $show->name }}</span>
+                    class="btn btn-success">Enable the Employee {{ $show->name }}
                 @endif
             </button>
         </form>
+    </div>
+    <div class="row">
+        <img src="{{ url("storage/{$show->image}") }}" alt="Photo from {{ $show->name }}">
     </div>
 </div>
     
